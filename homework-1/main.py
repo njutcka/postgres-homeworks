@@ -1,7 +1,7 @@
 """Скрипт для заполнения данными таблиц в БД Postgres."""
 import csv
-
 import psycopg2
+from pathlib import Path
 
 def reader_csv(file):
     '''функция для считывания данных из файла'''
@@ -13,9 +13,14 @@ def reader_csv(file):
     return result
 
 # считываем из файлов массивы с данными
-read_csv_employess = reader_csv('../homework-1/north_data/employees_data.csv')
-read_csv_customers = reader_csv('../homework-1/north_data/customers_data.csv')
-read_csv_orders = reader_csv('../homework-1/north_data/orders_data.csv')
+path_e = Path(__file__).parent.joinpath("north_data").joinpath("employees_data.csv")
+read_csv_employess = reader_csv(path_e)
+
+path_c = Path(__file__).parent.joinpath("north_data").joinpath("customers_data.csv")
+read_csv_customers = reader_csv(path_c)
+
+path_o = Path(__file__).parent.joinpath("north_data").joinpath("orders_data.csv")
+read_csv_orders = reader_csv(path_o)
 
 # подключаемся к базе данных north
 conn = psycopg2.connect(host='localhost', database='north', user='postgres', password='1234')
